@@ -20,6 +20,21 @@ public class PageController {
         return "index";
     }
 
-    
+    private ArrayList<Movie> getBestMovies() {
+        ArrayList<Movie> movies = new ArrayList();
+        movies.add(new Movie(1, "Titolo1"));
+        movies.add(new Movie(2, "Titolo2"));
+        movies.add(new Movie(3, "Titolo3"));
+        return movies;
+    }
+
+    private ArrayList<Song> getBestSongs() {
+        ArrayList<Song> songs = new ArrayList();
+        songs.add(new Song(1, "Titolo1"));
+        songs.add(new Song(2, "Titolo2"));
+        songs.add(new Song(3, "Titolo3"));
+        return songs;
+
+    }
 
 }
