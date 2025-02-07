@@ -37,4 +37,18 @@ public class PageController {
 
     }
 
+    @GetMapping("/movies")
+    public String movies(@RequestParam String name, Model model) {
+        model.addAttribute("name", name);
+        model.addAttribute("movies", getBestMovies());
+        return "movies";
+    }
+
+    @GetMapping("/songs")
+    public String songs(@RequestParam String name, Model model) {
+        model.addAttribute("name", name);
+        model.addAttribute("songs", getBestSongs());
+        return "songs";
+    }
+
 }
