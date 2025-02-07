@@ -14,6 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/")
 public class PageController {
 
+    @GetMapping("/index")
+    public String index(@RequestParam(name = "name") String name, Model model) {
+        model.addAttribute("name", name);
+        return "index";
+    }
+
     
 
 }
