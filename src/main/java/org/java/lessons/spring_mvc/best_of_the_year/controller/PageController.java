@@ -1,12 +1,14 @@
 package org.java.lessons.spring_mvc.best_of_the_year.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.java.lessons.spring_mvc.best_of_the_year.classes.Movie;
 import org.java.lessons.spring_mvc.best_of_the_year.classes.Song;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -45,10 +47,38 @@ public class PageController {
     }
 
     @GetMapping("/songs")
-    public String songs(@RequestParam String name, Model model) {
-        model.addAttribute("name", name);
+    public String songs(Model model) {
         model.addAttribute("songs", getBestSongs());
         return "songs";
+    }
+
+    @GetMapping("/movie/{id}")
+    public String movieId(Model model, @PathVariable("id") int id) {
+        ArrayList<Movie> movies = getBestMovies();
+        Movie movieId = null;
+        for (Movie movie : movies) {
+            if (movie.getId() == id) {
+                movieId = movie;
+                break;
+            }
+        }
+        model.addAttribute("movie", movieId);
+        return "movie";
+
+    }
+
+    @GetMapping("/song/{id}")
+    public String songId(Model model, @PathVariable("id") int id) {
+        ArrayList<Song> songs = getBestSongs();
+        Song songId = null;
+        for (Song song : songs) {
+            if (song.getId() == id) {
+                songId = song;
+                break;
+            }
+        }
+        model.addAttribute("song", songId);
+        return "song";
     }
 
 }
