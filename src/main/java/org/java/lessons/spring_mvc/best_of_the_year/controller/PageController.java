@@ -16,6 +16,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/")
 public class PageController {
 
+    private ArrayList<Movie> movies = new ArrayList();
+    private ArrayList<Song> songs = new ArrayList();
+
+    @GetMapping("/home")
+    public String indexName(Model model) {
+        return "home";
+    }
+
     @GetMapping("/index")
     public String index(@RequestParam(name = "name") String name, Model model) {
         model.addAttribute("name", name);
@@ -23,25 +31,25 @@ public class PageController {
     }
 
     private ArrayList<Movie> getBestMovies() {
-        ArrayList<Movie> movies = new ArrayList();
-        movies.add(new Movie(1, "Titolo1"));
-        movies.add(new Movie(2, "Titolo2"));
-        movies.add(new Movie(3, "Titolo3"));
+        if (movies.size() == 0) {
+            movies.add(new Movie(1, "Film1"));
+            movies.add(new Movie(2, "Film2"));
+            movies.add(new Movie(3, "Film3"));
+        }
         return movies;
     }
 
     private ArrayList<Song> getBestSongs() {
-        ArrayList<Song> songs = new ArrayList();
-        songs.add(new Song(1, "Titolo1"));
-        songs.add(new Song(2, "Titolo2"));
-        songs.add(new Song(3, "Titolo3"));
+        if (songs.size() == 0) {
+            songs.add(new Song(1, "Canzone1"));
+            songs.add(new Song(2, "Canzone2"));
+            songs.add(new Song(3, "Canzone3"));
+        }
         return songs;
-
     }
 
     @GetMapping("/movies")
-    public String movies(@RequestParam String name, Model model) {
-        model.addAttribute("name", name);
+    public String movies(Model model) {
         model.addAttribute("movies", getBestMovies());
         return "movies";
     }
@@ -52,9 +60,10 @@ public class PageController {
         return "songs";
     }
 
-    @GetMapping("/movie/{id}")
-    public String movieId(Model model, @PathVariable("id") int id) {
-        ArrayList<Movie> movies = getBestMovies();
+    @GetMapping("/movies/{id}")
+    public String movieId(@PathVariable int id, Model model) {
+        List<Movie> movies = getBestMovies();
+
         Movie movieId = null;
         for (Movie movie : movies) {
             if (movie.getId() == id) {
@@ -62,13 +71,12 @@ public class PageController {
                 break;
             }
         }
-        model.addAttribute("movie", movieId);
-        return "movie";
-
+        model.addAttribute("item", movieId);
+        return "details";
     }
 
-    @GetMapping("/song/{id}")
-    public String songId(Model model, @PathVariable("id") int id) {
+    @GetMapping("/songs/{id}")
+    public String songId(Model model, @PathVariable int id) {
         ArrayList<Song> songs = getBestSongs();
         Song songId = null;
         for (Song song : songs) {
@@ -77,8 +85,7 @@ public class PageController {
                 break;
             }
         }
-        model.addAttribute("song", songId);
-        return "song";
+        model.addAttribute("item", songId);
+        return "details";
     }
-
 }
