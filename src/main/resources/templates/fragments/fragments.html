@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div th:fragment="cardHeader" class="row g-0 card-header">
+        <a class="col-md-4 p-3 align-self-center" href="/home">
+            Best of
+        </a>
+        <div class="col-md-8 text-center text-md-start p-3 align-self-center">
+            <a class="btn btn-outline-dark" href="/movies" role="button">Movies</a>
+            <a class="btn btn-outline-dark" href="/songs" role="button">Songs</a>
+        </div>
+    </div>
+
+    <div th:fragment="cardDetails" class="card-body p-3  border-top border-dark" style="width: 100%;">
+        <h5 class="card-title pb-3">Best of...</h5>
+        <div class="border border-dark py-2">
+            <h2 th:text="'Title: ' + ${item.getTitle}" />
+            <h2 th:text="'Id: ' + ${item.getId}" />
+        </div>
+    </div>
+
+    <div th:fragment="cardMovies" class="card-body p-3 border-top border-dark" style="width: 100%;">
+        <h5 class="card-title pb-3">Best of...</h5>
+        <div class="list-group">
+            <a th:each="movie : ${movies}" th:text="${movie.getTitle} + ' ' + ${movie.getId}"
+            th:href="@{/movies/{id}(id=${movie.getId()})}" class="list-group-item list-group-item-action " aria-current="true">
+            </a>
+        </div>
+    </div>
+
+    <div th:fragment="cardSongs" class="card-body p-3 border-top border-dark" style="width: 100%;">
+        <h5 class="card-title pb-3">Best of...</h5>
+        <div class="list-group">
+            <a th:each="song : ${songs}" th:text="${song.getTitle} + ' ' + ${song.getId}"
+                th:href="@{/songs/{id}(id=${song.getId()})}" class="list-group-item list-group-item-action "
+                aria-current="true">
+            </a>
+        </div>
+    </div>
+
+
+
+    <a th:fragment="button(link, title)" th:href="@{link}" th:text="${title}" class="btn btn-outline-dark">
+    </a>
+
+    <!-- <div th:insert="fragments/fragments :: button('/movies', 'Movies')"/>
+    <div th:insert="fragments/fragments :: button('/songs', 'Songs')"/> -->
+
+    <!-- <div th:insert="fragments/fragments :: button(' /movies', 'Movies')">
+    </div>
+    <div th:insert="fragments/fragments :: button(' /songs', 'Songs')">
+    </div> -->
+
+    <!-- <div fragment="cardHeader(link, title)" th: href="@{link}" th: text="${title}"
+        class="row g-0 p-0 card-header border-bottom border-dark">
+        <div class="col-md-4 p-3 align-self-center">
+            Best of
+        </div>
+        <div class="col-md-8 text-center text-md-start p-3 align-self-center">
+            <a class="btn btn-outline-dark" href="#" role="button">Movies</a>
+            <a class="btn btn-outline-dark" href="#" role="button">Songs</a>
+        </div>
+    </div> -->
+</body>
+
+</html>
